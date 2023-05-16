@@ -1404,7 +1404,7 @@ static bool32 WasPressed(button_state State)
 
 Entity screen_space;
 
-static void InitGameObjecets(Game_Memory* memory)
+static void InitGameObjects(Game_Memory* memory)
 {
 	Gameplay_Data* data = (Gameplay_Data*)memory->persistent_memory;
 
@@ -2099,7 +2099,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	data->map_tex = get_texture_data("map.bmp");
 	data->bullet_texture = Get_Texture("bullet.png");
 
-	InitGameObjecets(&memory);
+	InitGameObjects(&memory);
 
 
 	while (GlobalRunning)
