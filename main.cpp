@@ -170,9 +170,6 @@ inline void * Copy(size_t size, void* sourceInit, void* destInit)
 	return destInit;
 }
 
-//useful stuff
-
-#ifndef USEFUL_SUMMERJAM_STUFF
 
 static f32 clamp(f32 in, f32 clamp)
 {
@@ -306,8 +303,6 @@ IsWhitespace(char c)
 	return result;
 }
 
-#define USEFUL_SUMMERJAM_STUFF
-#endif //USEFUL_SUMMERJAM_STUFF
 
 #define NUM_BUTTONS 12
 typedef struct Input_State
@@ -2073,13 +2068,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
 	windowClass.lpfnWndProc = MainWindowCallback;
 	windowClass.hInstance = hInstance;
-	windowClass.lpszClassName = L"SummerjamWindow";
+	windowClass.lpszClassName = L"tankbattlevs";
 
 	if (!RegisterClass(&windowClass))
 		return 0;
 
 	HWND window = CreateWindowEx(0, windowClass.lpszClassName,
-		L"Summer Jam Building Blocks Handmade",
+		L"tank_battle_vs",
 		WS_OVERLAPPEDWINDOW | WS_VISIBLE,
 		CW_USEDEFAULT, CW_USEDEFAULT,
 		CW_USEDEFAULT, CW_USEDEFAULT,
