@@ -150,9 +150,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="input.h" />
     <ClInclude Include="stb_image.h" />
-    <ClInclude Include="tankbattle.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="shaders\fragmentshader.fragmentshader">
