@@ -16,7 +16,6 @@
 #define Assert(...)
 #endif
 
-#define InvalidDefaultCase default: { Assert(0); }
 #define InvalidCodePath Assert(0);
 
 #define ArrayCount(Array) (sizeof(Array) / sizeof((Array)[0]))
