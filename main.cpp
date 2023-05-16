@@ -1356,7 +1356,6 @@ typedef struct Tank {
 #define NUM_BULLETS 50
 
 typedef struct Gameplay_Data {
-	bool32 IsInitialized;
 	Tank player1 = {};
 	Tank player2 = {};
 	Entity blocks[NUM_BLOCKS_MAP];
@@ -1945,22 +1944,8 @@ void update_player(Gameplay_Data* data, Tank* tank, Input_State Input, f32 dt)
 		player->is_active = false;
 }
 
-void UpdateGamePlay(Game_Memory * memory, Input_State Input, Input_State Input2, f32 dt)
+void UpdateGamePlay(Gameplay_Data* data, Input_State Input, Input_State Input2, f32 dt)
 {
-	Gameplay_Data* data = (Gameplay_Data*)memory->persistent_memory;
-
-	if (!data->IsInitialized)
-	{
-		data->tank_texture = Get_Texture("tank_base.png");
-		data->turret_texture = Get_Texture("tank_turret.png");
-		data->block_texture = Get_Texture("block.png");
-		data->map_tex = get_texture_data("map.bmp");
-		data->bullet_texture = Get_Texture("bullet.png");
-
-		InitGameObjecets(memory);
-		data->IsInitialized = true;
-	}
-
 	update_player(data, &data->player1, Input, dt);
 	update_player(data, &data->player2, Input2, dt);
 
@@ -1998,10 +1983,8 @@ void UpdateGamePlay(Game_Memory * memory, Input_State Input, Input_State Input2,
 	}
 }
 
-void RenderGameplay(Game_Memory * memory)
+void RenderGameplay(Gameplay_Data* data)
 {
-	Gameplay_Data* data = (Gameplay_Data*)memory->persistent_memory;
-
 	if (data->player1.ent.is_active)
 	{
 		add_quad_to_render_buffer(make_quad_from_entity(data->player1.ent), data->tank_texture.handle);
@@ -2106,6 +2089,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UINT MinSleepPeriod = 1;
 	f32 TargetSeconds = 1.0f / 60.0f;
 
+
+	Gameplay_Data* data = (Gameplay_Data*)memory.persistent_memory;
+	
+
+	data->tank_texture = Get_Texture("tank_base.png");
+	data->turret_texture = Get_Texture("tank_turret.png");
+	data->block_texture = Get_Texture("block.png");
+	data->map_tex = get_texture_data("map.bmp");
+	data->bullet_texture = Get_Texture("bullet.png");
+
+	InitGameObjecets(&memory);
+
+
 	while (GlobalRunning)
 	{
 		//input handling
@@ -2120,12 +2116,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			get_gamepad_input(XInputState, Old_XInputState, input_state);
 		}
-		Gameplay_Data* data = (Gameplay_Data*)memory.persistent_memory;
 		
 		input_state2 = UpdateBot(*data, 2);
 
-		UpdateGamePlay(&memory, input_state, input_state2, TargetSeconds);
-		RenderGameplay(&memory);
+		UpdateGamePlay(data, input_state, input_state2, TargetSeconds);
+		RenderGameplay(data);
 
 		win32_ogl_render(windowDC, &global_render_buffer);
 		reset_quad_buffers(&global_render_buffer);
