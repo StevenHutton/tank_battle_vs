@@ -306,7 +306,6 @@ typedef struct Input_State
 	};
 } controller_input;
 
-//todo(shutton) - probably make the quad buffer variable size at runtime
 typedef struct QuadBuffer {
 	uint32 texture_handle;
 	Quad quads[QUAD_BUFFER_SIZE];
@@ -435,13 +434,13 @@ static void Win32InitXInput()
 		Win32XInputGetState = (x_input_get_state*)GetProcAddress(Library, "XInputGetState");
 		if (!Win32XInputGetState)
 		{
-			// TODO(kstandbridge): Error loading XInputSetState
+			// Error loading XInputSetState
 			InvalidCodePath;
 		}
 	}
 	else
 	{
-		// TODO(kstandbridge): Error xinput dll not found
+		// Error xinput dll not found
 		InvalidCodePath;
 	}
 }
@@ -1085,7 +1084,7 @@ static void win32_ogl_render(HDC device_context, RenderBuffer* buffer)
 	float MVPMatrix[4][4];
 	MatrixToIdentity(model_matrix);
 	MatrixToIdentity(camera_matrix);
-	//todo - figure out how I screwed up the perspective matrix to make the directions backwards?
+	// maybe figure out why the perspective matrix has the directions backwards so this line is not needed...
 	MatrixTranslate44(-25.0f, -14.5f, 5.0f, camera_matrix);
 
 	MatrixMul44(model_matrix, camera_matrix, MVMatrix);
@@ -2040,7 +2039,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	if (!window)
 	{
-		//todo - some error handling goes here
 		return(0);
 	}
 
