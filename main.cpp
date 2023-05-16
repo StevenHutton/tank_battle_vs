@@ -30,7 +30,6 @@ typedef uint32_t uint32;
 typedef int64_t int64;
 typedef uint64_t uint64;
 typedef float f32;
-typedef int32 bool32;
 
 #define Kilobytes(Value) ((Value)*1024LL)
 #define Megabytes(Value) (Kilobytes(Value)*1024LL)
@@ -1280,9 +1279,9 @@ static void Win32ProcessPendingMessages(Input_State& input_result)
 		case WM_KEYUP:
 		{
 			uint32 VKCode = (uint32)message.wParam;
-			bool32 AltKeyWasDown = (message.lParam & (1 << 29));
-			bool32 WasDown = ((message.lParam & (1 << 30)) != 0);
-			bool32 IsDown = ((message.lParam & (1 << 31)) == 0);
+			bool AltKeyWasDown = (message.lParam & (1 << 29));
+			bool WasDown = ((message.lParam & (1 << 30)) != 0);
+			bool IsDown = ((message.lParam & (1 << 31)) == 0);
 			if (WasDown != IsDown)
 			{
 				switch (VKCode)
@@ -1391,9 +1390,9 @@ Win32GetWallClock()
 	return Result;
 }
 
-static bool32 WasPressed(button_state State)
+static bool WasPressed(button_state State)
 {
-	bool32 Result = ((State.HalfTransitionCount > 1) ||
+	bool Result = ((State.HalfTransitionCount > 1) ||
 		(State.HalfTransitionCount == 1) && State.ended_down);
 	return Result;
 }
