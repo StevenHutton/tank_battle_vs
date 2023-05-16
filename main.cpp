@@ -282,27 +282,6 @@ inline void AppendCString(char* StartAt, const char* Text)
 	}
 }
 
-inline bool32
-IsEndOfLine(char c)
-{
-	bool32 result = ((c == '\n') ||
-		(c == '\r'));
-
-	return result;
-}
-
-inline bool32
-IsWhitespace(char c)
-{
-	bool32 result = ((c == ' ') ||
-		(c == '\t') ||
-		(c == '\v') ||
-		(c == '\f') ||
-		IsEndOfLine(c));
-
-	return result;
-}
-
 
 #define NUM_BUTTONS 12
 typedef struct Input_State
