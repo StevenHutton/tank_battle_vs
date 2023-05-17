@@ -1929,13 +1929,13 @@ void UpdateGamePlay(Gameplay_Data* data, Input_State Input, Input_State Input2, 
 	update_player(data, &data->player1, Input, dt);
 	update_player(data, &data->player2, Input2, dt);
 
-	//update bullets
+	// update bullets
 	for (int i = 0; i < NUM_BULLETS; i++)
 	{
+		if (!data->bullets[i].is_active) continue;
+
 		for (int j = 0; j < data->block_count; j++)
 		{
-			if (!data->bullets[i].is_active) continue;
-
 			if (Is_Penetration_Naive(data->bullets[i], data->blocks[j]) && data->blocks[j].is_active)
 			{
 				data->bullets[i].is_active = false;
@@ -1943,23 +1943,23 @@ void UpdateGamePlay(Gameplay_Data* data, Input_State Input, Input_State Input2, 
 				if (data->blocks[j].health <= 0)
 					data->blocks[j].is_active = false;
 			}
-
-			if (Is_Penetration_Naive(data->bullets[i], data->player1.ent) && data->player1.ent.is_active)
-			{
-				data->bullets[i].is_active = false;
-				data->player1.ent.health -= 10;
-			}
-
-			if (Is_Penetration_Naive(data->bullets[i], data->player2.ent) && data->player2.ent.is_active)
-			{
-				data->bullets[i].is_active = false;
-				data->player2.ent.health -= 10;
-			}
-
-			if (!Is_Penetration_Naive(data->bullets[i], screen_space))
-				data->bullets[i].is_active = false;
 		}
 
+		if (Is_Penetration_Naive(data->bullets[i], data->player1.ent) && data->player1.ent.is_active)
+		{
+			data->bullets[i].is_active = false;
+			data->player1.ent.health -= 10;
+		}
+
+		if (Is_Penetration_Naive(data->bullets[i], data->player2.ent) && data->player2.ent.is_active)
+		{
+			data->bullets[i].is_active = false;
+			data->player2.ent.health -= 10;
+		}
+
+		if (!Is_Penetration_Naive(data->bullets[i], screen_space))
+			data->bullets[i].is_active = false;
+		
 		data->bullets[i].pos += (data->bullets[i].velocity * dt);
 	}
 }
