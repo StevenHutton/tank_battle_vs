@@ -1947,9 +1947,10 @@ void UpdateGamePlay(Gameplay_Data* data, Input_State Input, Input_State Input2, 
 	//update bullets
 	for (int i = 0; i < NUM_BULLETS; i++)
 	{
-		if (!data->bullets[i].is_active) continue;
 		for (int j = 0; j < data->block_count; j++)
 		{
+			if (!data->bullets[i].is_active) continue;
+
 			if (Is_Penetration_Naive(data->bullets[i], data->blocks[j]) && data->blocks[j].is_active)
 			{
 				data->bullets[i].is_active = false;
