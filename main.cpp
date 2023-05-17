@@ -307,7 +307,6 @@ typedef struct QuadBuffer {
 } QuadBuffer;
 
 typedef struct RenderBuffer {
-	Vector2 camera_pos;
 	int buffer_count;
 	QuadBuffer* quadBuffers[QUAD_BUFFER_MAX];
 } RenderBuffer;
@@ -1124,10 +1123,6 @@ static void add_quad_to_render_buffer(Quad quad, uint32 texture_handle)
 	quad_buffer->quad_count += 1;
 }
 
-static void SetCameraPosition(Vector2 cameraPos)
-{
-	global_render_buffer.camera_pos = cameraPos;
-}
 
 static void reset_quad_buffers(RenderBuffer* buffer)
 {
