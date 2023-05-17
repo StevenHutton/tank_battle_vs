@@ -1852,7 +1852,7 @@ void update_player(Gameplay_Data* data, Tank* tank, Input_State Input, f32 dt)
 			data->bullets[i].pos = player->pos;
 			Vector2 up = { 0.f, 1.f };
 			Vector2 bearing = Rotate(up, player->rotation + player->t_rot);
-			data->bullets[i].pos += bearing * 1.1f;
+			data->bullets[i].pos += bearing * 1.3f;
 			data->bullets[i].velocity = (bearing * 15.0f);
 			data->bullets[i].velocity += player->velocity;
 			break;
